@@ -1,0 +1,2 @@
+Password=SuperSecretRCONPassword
+Port=9100
