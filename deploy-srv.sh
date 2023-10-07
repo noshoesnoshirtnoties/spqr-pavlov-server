@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=1.0.0
+VERSION=1.1.0
 SUBJECT=deploy-srv
 USAGE="Usage: $0 -d <dsthost> -v\n
 -d destination host\n
@@ -110,13 +110,13 @@ if $SSH $DSTHOST '[ ! -d /home/steam/Steam ]'; then
   $SSH $DSTHOST "sudo su steam -c 'mkdir ~/Steam && cd ~/Steam && curl -sqL https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar zxvf -'"
 fi
 
-#if [ $VERBOSE ]; then echo "[INFO] doing some weird shit with steamclient.so"; fi
-#SSHCMD="mkdir -p /home/steam/.steam/sdk64"
-#$SSH $DSTHOST "sudo su - steam -c ${SSHCMD}"
-#SSHCMD="cp /home/steam/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so /home/steam/.steam/sdk64/steamclient.so"
-#$SSH $DSTHOST "sudo su - steam -c ${SSHCMD}"
-#SSHCMD="cp /home/steam/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so /home/steam/pavlovserver/Pavlov/Binaries/Linux/steamclient.so"
-#$SSH $DSTHOST "sudo su - steam -c ${SSHCMD}"
+if [ $VERBOSE ]; then echo "[INFO] doing some weird shit with steamclient.so"; fi
+SSHCMD="mkdir -p /home/steam/.steam/sdk64"
+$SSH $DSTHOST "sudo su - steam -c ${SSHCMD}"
+SSHCMD="cp /home/steam/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so /home/steam/.steam/sdk64/steamclient.so"
+$SSH $DSTHOST "sudo su - steam -c ${SSHCMD}"
+SSHCMD="cp /home/steam/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so /home/steam/pavlovserver/Pavlov/Binaries/Linux/steamclient.so"
+$SSH $DSTHOST "sudo su - steam -c ${SSHCMD}"
 
 if [ $VERBOSE ]; then echo "[INFO] checking if a pavlovserver is installed"; fi
 if $SSH $DSTHOST '[ ! -d /home/steam/pavlovserver ]'; then
